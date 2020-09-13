@@ -1,0 +1,81 @@
+---
+title: "Lasso with cyclic coordinate descent"
+author: "Jingyu Xu"
+date: "09/05/2020"
+output:
+  html_document:
+    code_folding: hide
+    toc: yes
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+##load packages
+library(tidyverse)
+library(glmnet)
+```
+
+##Simulate data 
+
+
+##construct our own lasso function utilizing cyclic coordinate descent method
+
+```{r cars}
+##soft threshold function
+soft_thre = function(a,lambda){
+  adjust = 0
+ if(a>lambda){
+   adjust = a+lambda
+ }
+  if(a< -lambda){
+    adjust = a-lambda
+  }
+  adjust
+}
+
+##construct our main function using cyclic coordinate descent(ccf)
+lasso_ccd <- function(
+  X,                   # predictor matrix
+  Y,                   # outcome value
+  start_ridge,         #start point of the coefficient estimation(use the close form of ridge or not)
+  num,                 #the start point if we do not use ridge estimation
+  lambda,              # penalty parameter
+  iteration,           # number of iterations
+  epsilon,             #the difference of estimated predictor between two iterations
+  intercept            #whether intercept is considered in our final model(note that intercept is not penalized in the model estimation)
+) {
+  if(intercept=TRUE){
+    intercept = rep(1,nrow(Y))
+    X = as.matrix(X)
+    Y = as.matrix(Y)
+    X = cbind(intercept,X)
+  }          #If we need to consider intercept, we should first update our design matrix
+   if(start_ridge){
+     beta = solve(crossprod(X) + diag(lambda, ncol(X))) %*% crossprod(X,Y)
+   }
+  else{
+    beta = rep(num,ncol(X))
+  }
+   while (i < iteration&& dif < epsilon)#two criterion is set
+     {
+     
+     ##following are the process of updating parameters
+    for(j in 1: ncol(X)){
+      beta_last = beta #restore the last beta to compare difference
+      r_j = Y - X[,-j] %*% beta[-j]
+      
+  }  
+   }
+}
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
