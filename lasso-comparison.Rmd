@@ -106,6 +106,7 @@ Note that the difference between updated and former predictor is not used as a t
 **Without intercept**
 
 ```{r}
+set.seed(111)
 X = as.matrix(X)
 Y = as.matrix(Y)
  lasso1 = glmnet(X,Y,alpha = 1,lambda = 0.3,
@@ -121,6 +122,7 @@ lasso_ccd(X,Y,start_ridge = TRUE,lambda = 0.3,iteration=1000,intercept=TRUE)
 **With intercept**
 
 ```{r}
+set.seed(111)
  lasso2 = glmnet(X,Y, alpha = 1,
     lambda = 0.3,
     standardize = FALSE

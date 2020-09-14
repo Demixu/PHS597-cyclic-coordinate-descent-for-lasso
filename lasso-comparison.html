@@ -530,7 +530,8 @@ data=data.frame(X,Y)</code></pre>
 <p>Then, we campare the performance between our function and glmnet package. lambda = 0.3 is selected for comparison and the interation times is 1000.</p>
 <p>Note that the difference between updated and former predictor is not used as a threshold there. However, for dataset with higher dimension, we could use both the change and iteration times for the ending condition.</p>
 <p><strong>Without intercept</strong></p>
-<pre class="r"><code>X = as.matrix(X)
+<pre class="r"><code>set.seed(111)
+X = as.matrix(X)
 Y = as.matrix(Y)
  lasso1 = glmnet(X,Y,alpha = 1,lambda = 0.3,
     intercept = FALSE,
@@ -556,7 +557,8 @@ lasso_ccd(X,Y,start_ridge = TRUE,lambda = 0.3,iteration=1000,intercept=TRUE)</co
 ## X3        -0.0614790
 ## X4         0.7310644</code></pre>
 <p><strong>With intercept</strong></p>
-<pre class="r"><code> lasso2 = glmnet(X,Y, alpha = 1,
+<pre class="r"><code>set.seed(111)
+ lasso2 = glmnet(X,Y, alpha = 1,
     lambda = 0.3,
     standardize = FALSE
   )
